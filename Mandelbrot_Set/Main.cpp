@@ -57,7 +57,7 @@ int main()
 
 	
 	//Configure inputs
-	glfwSetKeyCallback(window, keyCallback);
+	//glfwSetKeyCallback(window, keyCallback);
 	setInputHooks(&xScale, &yScale, &xOffset, &yOffset);
 	
 
@@ -113,6 +113,8 @@ int main()
 	//Main Code loop, runs until something tells the window to close
 	while (!glfwWindowShouldClose(window))
 	{
+		pollKeys(window);
+
 
 		//Actually use shaderProgram
 		shaderProgram.Activate();

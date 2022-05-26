@@ -28,3 +28,23 @@ void setInputHooks(float* _scaleX, float* _scaleY, float* _xOff, float* _yOff)
 	xOff = _xOff;
 	yOff = _yOff;
 }
+
+void pollKeys(GLFWwindow* window)
+{
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {		//Zoom in
+		*scaleX *= 0.95f;
+		*scaleY *= 0.95f;
+	}
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {	//Zoom out
+		*scaleX *= 1.1f;
+		*scaleY *= 1.1f;
+	}
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) 		//Pan up
+		*yOff += 0.01f * (*scaleY);
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) 		//Pan Down
+		*yOff -= 0.01f * (*scaleY);
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) 		//Pan Right
+		*xOff += 0.01f * (*scaleY);
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) 		//Pan Left
+		*xOff -= 0.01f * (*scaleY);
+}
