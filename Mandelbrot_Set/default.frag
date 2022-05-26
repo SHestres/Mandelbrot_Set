@@ -2,7 +2,7 @@
 
 out vec4 FragColor;
 
-#define maxIterations 200
+#define maxIterations 500
 
 uniform int width;
 uniform int height;
@@ -26,12 +26,14 @@ int iterations()
     while(iterations < maxIterations)
     {
         float tempReal = real;
+        float real_sq = real * real;
+        float imag_sq = imag * imag;
 
         //Execute the square and add
-        real = (real * real - imag * imag) + cReal;
-        imag = (2 * tempReal * imag) + cImag;
+        real = (real_sq - imag_sq) + cReal;
+        imag = ((tempReal + tempReal) * imag) + cImag;
 
-        if(real * real + imag * imag > 4.0f) break;
+        if(real_sq + imag_sq > 4.0f) break;
 
         iterations++;
     }

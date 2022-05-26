@@ -34,7 +34,7 @@ int main()
 
 
 	//Configure window (gets the width and height out)
-	GLFWwindow* window = configureWindow(&windowWidth, &windowHeight);
+	GLFWwindow* window = configureWindow(&windowWidth, &windowHeight, 1.0f);
 	//Make sure it actually exists
 	if (window == NULL)
 	{

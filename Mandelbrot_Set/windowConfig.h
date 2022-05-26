@@ -4,6 +4,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-GLFWwindow* configureWindow(int* windowWidth, int* windowHeight);
+GLFWwindow* configureWindow(int* windowWidth, int* windowHeight, float resolutionScale);
 
 #endif WINDOW_CONFIG_H
