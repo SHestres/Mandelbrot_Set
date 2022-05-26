@@ -2,7 +2,7 @@
 
 out vec4 FragColor;
 
-#define maxIterations 500
+#define maxIterations 200
 
 uniform int width;
 uniform int height;

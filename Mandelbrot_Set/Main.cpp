@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 
 #include "windowConfig.h"
+#include "input.h"
 #include "shaderClass.h"
 #include "VAO.h"
 #include "VBO.h"
@@ -56,11 +57,12 @@ int main()
 
 	
 	//Configure inputs
-	//glfwSetKeyCallback(window, glfwGetKey);
+	glfwSetKeyCallback(window, keyCallback);
+	setInputHooks(&xScale, &yScale, &xOffset, &yOffset);
 	
 
 
-	//Create the Vertex array
+	//Create the Vertex array. Four corners to cover the whole window
 	//
 	//x, y, z of each vertex. Defined using GLfloat to ensure the right size of float
 	GLfloat vertices[] =

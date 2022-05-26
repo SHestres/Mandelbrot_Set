@@ -18,7 +18,7 @@ GLFWwindow* configureWindow(int* windowWidth, int* windowHeight)
 
 	//Actually open and show the window by making it the context
 	glfwMakeContextCurrent(window);
-	//Load Glad to configure openGL  (idk why, but this can't be with the configuration section)
+	//Load Glad to configure openGL
 	gladLoadGL();
 	//Tell openGL the area of the window we want to render in
 	glViewport(0, 0, *windowWidth, *windowHeight);
