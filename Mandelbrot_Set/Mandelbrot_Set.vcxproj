@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArbitraryPrecision.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="input.cpp" />
@@ -159,6 +160,7 @@
     <None Include="Mandelbrot_HP.frag" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArbitraryPrecision.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="shaderClass.h" />

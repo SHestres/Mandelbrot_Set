@@ -9,10 +9,23 @@
 #include "VBO.h"
 #include "EBO.h"
 
-
+#include "ArbitraryPrecision.h"
 
 
 int main()
+{
+	APnum testNum;
+
+	testNum.storeFloat(10.5f);
+
+	testNum.printOut();
+
+	std::cout << testNum.toFloat() << std::endl;
+
+	return 0;
+}
+
+int main2()
 {
 
 	/////////Configuration
