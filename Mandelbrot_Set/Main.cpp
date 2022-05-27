@@ -26,7 +26,7 @@ int main()
 	//Set window parameters
 	int windowWidth;
 	int windowHeight;
-	float scale = 3.0f;
+	float scale = 2.0f;
 	float xOffset = 0.0f;
 	float yOffset = 0.0f;
 	float xScale;
@@ -57,7 +57,7 @@ int main()
 
 	
 	//Configure inputs
-	//glfwSetKeyCallback(window, keyCallback);
+	glfwSetKeyCallback(window, keyCallback);
 	setInputHooks(&xScale, &yScale, &xOffset, &yOffset);
 	
 
@@ -83,7 +83,7 @@ int main()
 	};
 
 	//Initialize Shaders
-	Shader shaderProgram = Shader("default.vert", "default.frag");
+	Shader shaderProgram = Shader("default.vert", "Mandelbrot_HP.frag");
 	
 	//Create Vertex Array
 	VAO VAO1;
@@ -115,6 +115,7 @@ int main()
 	{
 		pollKeys(window);
 
+		//std::cout << xScale << std::endl;
 
 		//Actually use shaderProgram
 		shaderProgram.Activate();

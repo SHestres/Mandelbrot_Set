@@ -2,7 +2,7 @@
 
 out vec4 FragColor;
 
-#define maxIterations 1000
+#define maxIterations 2000
 
 uniform int width;
 uniform int height;
@@ -15,25 +15,44 @@ int iterations()
 {
     int iterations = 0;
 
-    //Convert screen coordinate to complex number
-    float real = (gl_FragCoord.x / width - 0.5f) * xScale + xOffset;
-    float imag = (gl_FragCoord.y / height - 0.5f) * yScale + yOffset;
+    float Br = xOffset;
+    float Bi = yOffset;
+
+    float Sr = (gl_FragCoord.x / width - 0.5f) * xScale;
+    float Si = (gl_FragCoord.y / height - 0.5f) * yScale;
 
     //Store c (for the function Z_n = Z_(n-1) ^ 2 + c)
-    float cReal = real;
-    float cImag = imag;
+    float Bcr = Br; //Real part of big
+    float Scr = Sr; //Real part of small
+    float Bci = Bi; //Imag part of big
+    float Sci = Si; //Imag part of small
 
     while(iterations < maxIterations)
     {
-        float tempReal = real;
-        float real_sq = real * real;
-        float imag_sq = imag * imag;
+        float Br_temp = Br;
+        float Sr_temp = Sr;
+
+        float Zr = Br + Sr;
+        float Zi = Bi + Si;
+
+        //Values needed for precision calculation
+        float Br_sq = Br * Br;
+        float Sr_sq = Sr * Sr;
+        float Bi_sq = Bi * Bi;
+        float Si_sq = Si * Si;
+        float BrSr = Br * Sr;
+        float BiSi = Bi * Si;
+        float BrSi = Br * Si;
+        float BiSr = Bi * Sr;
 
         //Execute the square and add
-        real = (real_sq - imag_sq) + cReal;
-        imag = ((tempReal + tempReal) * imag) + cImag;
+        Br = Br_sq - Bi_sq + Bcr;
+        Sr = Sr_sq - Si_sq + 2 * (BrSr - BiSi) + Scr;
+        Bi = Br_temp * (Bi + Bi) + Bci;
+        Si = Sr_temp * (Si + Si) + 2 * (BrSi + BiSr) + Sci;
 
-        if(real_sq + imag_sq > 4.0f) break;
+
+        if((Zr * Zr + Zi * Zi) > 4.0f) break;
 
         iterations++;
     }
