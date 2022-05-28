@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <iostream>
 
+#define BIT9 256  //Bitmask for bit9
 
 class APnum
 {
@@ -11,16 +12,23 @@ class APnum
 		
 		APnum();
 		APnum(int length);
+		APnum(float value);
 		APnum(int length, float num);
 
 		float toFloat();
 		void storeFloat(float value);
+		void Add(APnum addend);
 
 		void printOut();
+		uint8_t* getNum();
+		int getLength();
+
 
 	private:
 		uint8_t* num;
 		int len;
+
+		void invert();
 
 };
 
