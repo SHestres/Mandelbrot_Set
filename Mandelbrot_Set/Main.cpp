@@ -11,8 +11,81 @@
 
 #include "ArbitraryPrecision.h"
 
+//Testing
+float maxIterations = 200;
+float xOffs;
+float yOffs;
+float width;
+float height;
+float scaleX;
+float scaleY;
+double x;
+double y;
 
-int main()
+int iterations()
+{
+	int iterations = 0;
+
+	float Br = xOffs;
+	float Bi = yOffs;
+
+	float Sr = (x / width - 0.5f) * scaleX;
+	float Si = (y / height - 0.5f) * scaleY;
+
+	//Store c (for the function Z_n = Z_(n-1) ^ 2 + c)
+	float Bcr = Br; //Real part of big
+	float Scr = Sr; //Real part of small
+	float Bci = Bi; //Imag part of big
+	float Sci = Si; //Imag part of small
+
+	while (iterations < maxIterations)
+	{
+		float Br_temp = Br;
+		float Sr_temp = Sr;
+
+		float Zr = Br + Sr;
+		float Zi = Bi + Si;
+
+		//Values needed for precision calculation
+		float Br_sq = Br * Br;
+		float Sr_sq = Sr * Sr;
+		float Bi_sq = Bi * Bi;
+		float Si_sq = Si * Si;
+		float BrSr = Br * Sr;
+		float BiSi = Bi * Si;
+		float BrSi = Br * Si;
+		float BiSr = Bi * Sr;
+
+		//Execute the square and add
+		Br = Br_sq - Bi_sq + Bcr;
+		Sr = Sr_sq - Si_sq + 2 * (BrSr - BiSi) + Scr;
+		Bi = Br_temp * (Bi + Bi) + Bci;
+		Si = Sr_temp * (Si + Si) + 2 * (BrSi + BiSr) + Sci;
+
+		float bMag = Br * Br + Bi * Bi;
+		float sMag = Sr * Sr + Si * Si;
+
+		std::cout << "Iteration " << iterations << ":" << std::endl;
+		std::cout << "Br: " << Br << std::endl;
+		std::cout << "Bi: " << Bi << std::endl;
+		std::cout << "Sr: " << Sr << std::endl;
+		std::cout << "Si: " << Si << std::endl;
+		std::cout << "bMag: " << bMag << std::endl;
+		std::cout << "sMag: " << sMag << std::endl;
+		std::cout << std::endl;
+
+
+		if ((Sr_sq + Si_sq) > 4.0f) break;
+
+		iterations++;
+	}
+
+	return iterations;
+}
+
+
+
+int main1()
 {
 	APnum testNum;
 
@@ -25,7 +98,7 @@ int main()
 	return 0;
 }
 
-int main2()
+int main()
 {
 
 	/////////Configuration
@@ -73,6 +146,11 @@ int main2()
 	glfwSetKeyCallback(window, keyCallback);
 	setInputHooks(&xScale, &yScale, &xOffset, &yOffset);
 	
+
+
+
+	
+
 
 
 	//Create the Vertex array. Four corners to cover the whole window
@@ -128,6 +206,21 @@ int main2()
 	{
 		pollKeys(window);
 
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1))
+		{
+			glfwGetCursorPos(window, &x, &y);
+
+			//Testing
+			width = windowWidth;
+			height = windowHeight;
+			xOffs = xOffset;
+			yOffs = yOffset;
+			scaleX = xScale;
+			scaleY = yScale;
+
+			iterations();
+		}
+
 		//std::cout << xScale << std::endl;
 
 		//Actually use shaderProgram
@@ -169,3 +262,6 @@ int main2()
 	glfwTerminate();
 	return 0;
 }
+
+
+

@@ -2,7 +2,7 @@
 
 out vec4 FragColor;
 
-#define maxIterations 2000
+#define maxIterations 1000
 
 uniform int width;
 uniform int height;
@@ -52,7 +52,7 @@ int iterations()
         Si = Sr_temp * (Si + Si) + 2 * (BrSi + BiSr) + Sci;
 
 
-        if((Zr * Zr + Zi * Zi) > 4.0f) break;
+        if((Br + Sr) * (Br + Sr) + (Bi + Si) * (Bi + Si) > 4.0f) break;
 
         iterations++;
     }
