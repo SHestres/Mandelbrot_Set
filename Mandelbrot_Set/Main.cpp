@@ -87,13 +87,23 @@ int iterations()
 
 int main1()
 {
-	APnum testNum;
+	APnum testNum(15, -4.33f);
+	APnum num2(-72.6f);
 
-	testNum.storeFloat(10.5f);
+
+	std::cout << testNum.toFloat() << std::endl;
 
 	testNum.printOut();
 
+	std::cout << num2.toFloat() << std::endl;
+
+	num2.printOut();
+
+
+	testNum.Add(num2);
+
 	std::cout << testNum.toFloat() << std::endl;
+
 
 	return 0;
 }
