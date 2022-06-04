@@ -34,14 +34,27 @@ void pollKeys(GLFWwindow* window)
 		*scaleX *= 1 + (.9f * deltaTime);
 		*scaleY *= 1 + (.9f * deltaTime);
 	}
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) 		//Pan up
-		*yOff += 0.5f * (*scaleY) * deltaTime;
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) 		//Pan Down
-		*yOff -= 0.5f * (*scaleY) * deltaTime;
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) 		//Pan Right
-		*xOff += 0.5f * (*scaleY) * deltaTime;
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) 		//Pan Left
-		*xOff -= 0.5f * (*scaleY) * deltaTime;
-
+	if (*scaleX > 0.0001f)
+	{
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) 		//Pan up
+			*yOff += 0.5f * (*scaleY) * deltaTime;
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) 		//Pan Down
+			*yOff -= 0.5f * (*scaleY) * deltaTime;
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) 		//Pan Right
+			*xOff += 0.5f * (*scaleY) * deltaTime;
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) 		//Pan Left
+			*xOff -= 0.5f * (*scaleY) * deltaTime;
+	}
+	else
+	{
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) 		//Pan up
+			*yOff = nextafterf(*yOff, 100);
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) 		//Pan Down
+			*yOff = nextafterf(*yOff, -100);
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) 		//Pan Right
+			*xOff = nextafterf(*xOff, 100);
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) 		//Pan Left
+			*xOff = nextafterf(*xOff, -100);
+	}
 	curr_time = time;
 }

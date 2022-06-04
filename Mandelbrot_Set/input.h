@@ -2,6 +2,7 @@
 #define INPUT_H
 
 #include <GLFW/glfw3.h>
+#include <math.h>
 
 //Handles keypress events
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
